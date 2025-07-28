@@ -9,6 +9,7 @@ class AppTheme {
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.lightBlue,
       foregroundColor: Colors.white,
+      centerTitle: false,
     ),
     colorScheme: const ColorScheme.light(
       surface: Colors.white,
