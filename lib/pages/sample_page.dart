@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
 class SamplePage extends StatelessWidget {
-  const SamplePage({super.key});
+  final String label;
+
+  const SamplePage(this.label, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Sample Page'),
+    return Center(
+      child: Text(label),
     );
   }
 }

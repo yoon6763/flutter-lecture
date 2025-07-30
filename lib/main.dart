@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lecture/config/app_theme.dart';
+import 'package:flutter_lecture/main_demo.dart';
 import 'package:flutter_lecture/pages/base_page.dart';
 
 void main() {
@@ -15,7 +16,8 @@ class FlutterLectureApp extends StatelessWidget {
       title: "Flutter D' Class",
       debugShowCheckedModeBanner: false,
       theme: AppTheme.defaultTheme,
-      home: const BasePage(),
+      home: BasePage(),
+      // home: HomePage(),
     );
   }
 }

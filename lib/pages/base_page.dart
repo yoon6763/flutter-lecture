@@ -12,12 +12,7 @@ class BasePage extends StatefulWidget {
 class _BasePageState extends State<BasePage> {
   int _selectedPageIndex = 0;
 
-  final List<Widget> _pages = [
-    const Center(child: Text('Home Page')),
-    const Center(child: Text('Flutter Introduction')),
-    const Center(child: Text('Dart Basics')),
-    const Center(child: Text('Flutter Basics')),
-  ];
+  final List<Widget> _pages = sections.map((section) => section.page).toList();
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +22,9 @@ class _BasePageState extends State<BasePage> {
           SidebarWidget(
             sections: sections,
             selectedPageIndex: _selectedPageIndex,
-            onItemSelected: (pageIndex) {
-              setState(() {
-                _selectedPageIndex = pageIndex;
-              });
-            },
+            onItemSelected: onSideBarMenuSelected,
           ),
-          Expanded(
-            child: _pages[_selectedPageIndex],
-          ),
+          Expanded(child: _pages[_selectedPageIndex]),
         ],
       ),
       floatingActionButton: const FloatingActionButton(
@@ -44,5 +33,9 @@ class _BasePageState extends State<BasePage> {
         child: Icon(Icons.question_answer_rounded),
       ),
     );
+  }
+
+  void onSideBarMenuSelected(int pageIndex) {
+    setState(() => _selectedPageIndex = pageIndex);
   }
 }

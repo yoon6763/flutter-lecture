@@ -20,18 +20,25 @@ class SidebarWidget extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Container(
-      width: 260,
+      width: 280,
       color: theme.colorScheme.surfaceContainerLowest,
       child: Material(
+        color: Colors.transparent,
         elevation: 2.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.fromLTRB(20.0, 24.0, 20.0, 12.0),
-              child: Text(
-                '플러터 입문 강의',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              child: Row(
+                children: [
+                  Icon(Icons.flutter_dash_rounded),
+                  SizedBox(width: 10),
+                  Text(
+                    "Flutter D' Class",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
             ),
             Expanded(
@@ -78,21 +85,39 @@ class SidebarWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-      child: ListTile(
-        leading: Icon(currentIcon, color: itemColor),
-        title: Text(
-          section.title,
-          style: TextStyle(
-            color: itemColor,
-            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          border: Border.all(
+            color: isSelected ? section.color : Colors.transparent,
+            width: 1,
           ),
         ),
-        selected: isSelected,
-        onTap: onTap,
-        selectedTileColor: theme.colorScheme.primaryContainer.withOpacity(0.3),
-        hoverColor: theme.colorScheme.onSurface.withOpacity(0.04),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: ListTile(
+          leading: Icon(currentIcon, color: itemColor),
+          title: Text(
+            section.title,
+            style: TextStyle(
+              color: itemColor,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+          subtitle: Text(
+            section.subtitle,
+            style: TextStyle(
+              color: itemColor.withOpacity(0.5),
+              fontSize: 11.5,
+            ),
+          ),
+          selected: isSelected,
+          onTap: onTap,
+          selectedTileColor:
+              theme.colorScheme.primaryContainer.withOpacity(0.3),
+          hoverColor: theme.colorScheme.onSurface.withOpacity(0.04),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
+        ),
       ),
     );
   }
