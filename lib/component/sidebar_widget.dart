@@ -1,40 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lecture/component/sidebar_item.dart';
+import 'package:flutter_lecture/models/section.dart';
 
 typedef SidebarItemSelectionCallback = void Function(int pageIndex);
 
 class SidebarWidget extends StatelessWidget {
   final int selectedPageIndex;
   final SidebarItemSelectionCallback onItemSelected;
-
-  final List<SidebarItem> _sidebarItems = const [
-    SidebarItem(
-        icon: Icons.home_outlined,
-        selectedIcon: Icons.home,
-        label: '홈',
-        pageIndex: 0),
-    SidebarItem(
-        icon: Icons.school_outlined,
-        selectedIcon: Icons.school,
-        label: '플러터 소개',
-        pageIndex: 1),
-    SidebarItem(
-        icon: Icons.language,
-        selectedIcon: Icons.category,
-        label: 'Dart 기초',
-        pageIndex: 2),
-    SidebarItem(
-        icon: Icons.flutter_dash_rounded,
-        selectedIcon: Icons.flutter_dash_rounded,
-        label: 'Flutter 기초',
-        pageIndex: 3),
-  ];
+  final List<Section> _sections;
 
   const SidebarWidget({
     super.key,
     required this.selectedPageIndex,
     required this.onItemSelected,
-  });
+    required List<Section> sections,
+  }) : _sections = sections;
 
   @override
   Widget build(BuildContext context) {
@@ -51,22 +30,22 @@ class SidebarWidget extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.fromLTRB(20.0, 24.0, 20.0, 12.0),
               child: Text(
-                '강의 메뉴',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                '플러터 입문 강의',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: _sidebarItems.length,
+                itemCount: _sections.length,
                 itemBuilder: (context, index) {
-                  final curItem = _sidebarItems[index];
-                  final isSelected = selectedPageIndex == curItem.pageIndex;
+                  final curSection = _sections[index];
+                  final isSelected = selectedPageIndex == index;
 
                   return _buildListItem(
                     context: context,
-                    item: curItem,
+                    section: curSection,
                     isSelected: isSelected,
-                    onTap: () => onItemSelected(curItem.pageIndex),
+                    onTap: () => onItemSelected(index),
                   );
                 },
               ),
@@ -75,7 +54,7 @@ class SidebarWidget extends StatelessWidget {
               padding: EdgeInsets.all(16.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[Text('powered by Flutter')],
+                children: <Widget>[Text('✨ powered by Flutter')],
               ),
             ),
           ],
@@ -86,7 +65,7 @@ class SidebarWidget extends StatelessWidget {
 
   Widget _buildListItem({
     required BuildContext context,
-    required SidebarItem item,
+    required Section section,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
@@ -94,26 +73,27 @@ class SidebarWidget extends StatelessWidget {
     final Color itemColor = isSelected
         ? theme.colorScheme.primary
         : theme.colorScheme.onSurfaceVariant;
-    final IconData currentIcon = (isSelected && item.selectedIcon != null)
-        ? item.selectedIcon!
-        : item.icon;
+    final IconData currentIcon =
+        isSelected ? section.selectedIcon : section.icon;
 
-    return ListTile(
-      leading: Icon(currentIcon, color: itemColor),
-      title: Text(
-        item.label,
-        style: TextStyle(
-          color: itemColor,
-          fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+      child: ListTile(
+        leading: Icon(currentIcon, color: itemColor),
+        title: Text(
+          section.title,
+          style: TextStyle(
+            color: itemColor,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          ),
         ),
+        selected: isSelected,
+        onTap: onTap,
+        selectedTileColor: theme.colorScheme.primaryContainer.withOpacity(0.3),
+        hoverColor: theme.colorScheme.onSurface.withOpacity(0.04),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
       ),
-      selected: isSelected,
-      onTap: onTap,
-      selectedTileColor: theme.colorScheme.primaryContainer.withOpacity(0.3),
-      hoverColor: theme.colorScheme.onSurface.withOpacity(0.04),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
-      // dense: true,
     );
   }
 }

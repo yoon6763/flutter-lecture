@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lecture/component/sidebar_widget.dart';
+import 'package:flutter_lecture/models/sections.dart';
 
 class BasePage extends StatefulWidget {
-  const BasePage({super.key, required this.title});
-
-  final String title;
+  const BasePage({super.key});
 
   @override
   State<BasePage> createState() => _BasePageState();
@@ -13,13 +12,20 @@ class BasePage extends StatefulWidget {
 class _BasePageState extends State<BasePage> {
   int _selectedPageIndex = 0;
 
+  final List<Widget> _pages = [
+    const Center(child: Text('Home Page')),
+    const Center(child: Text('Flutter Introduction')),
+    const Center(child: Text('Dart Basics')),
+    const Center(child: Text('Flutter Basics')),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.title)),
       body: Row(
         children: [
           SidebarWidget(
+            sections: sections,
             selectedPageIndex: _selectedPageIndex,
             onItemSelected: (pageIndex) {
               setState(() {
@@ -27,7 +33,9 @@ class _BasePageState extends State<BasePage> {
               });
             },
           ),
-          const Text('SamplePage'),
+          Expanded(
+            child: _pages[_selectedPageIndex],
+          ),
         ],
       ),
       floatingActionButton: const FloatingActionButton(
