@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_lecture/models/section.dart';
+import 'package:flutter_lecture/models/menu_info.dart';
 
 typedef SidebarItemSelectionCallback = void Function(int pageIndex);
 
 class SidebarWidget extends StatelessWidget {
   final int selectedPageIndex;
   final SidebarItemSelectionCallback onItemSelected;
-  final List<Section> _sections;
+  final List<MenuInfo> _menuList;
 
   const SidebarWidget({
     super.key,
     required this.selectedPageIndex,
     required this.onItemSelected,
-    required List<Section> sections,
-  }) : _sections = sections;
+    required List<MenuInfo> menuList,
+  }) : _menuList = menuList;
 
   @override
   Widget build(BuildContext context) {
@@ -36,13 +36,14 @@ class SidebarWidget extends StatelessWidget {
                   SizedBox(width: 10),
                   Text(
                     "Flutter D' Class",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 13.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 13.0),
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
@@ -64,7 +65,7 @@ class SidebarWidget extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      '총 ${_sections.length}개 강의',
+                      '총 ${_menuList.length}개 강의',
                       style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 14,
@@ -76,14 +77,14 @@ class SidebarWidget extends StatelessWidget {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: _sections.length,
+                itemCount: _menuList.length,
                 itemBuilder: (context, index) {
-                  final curSection = _sections[index];
+                  final curMenu = _menuList[index];
                   final isSelected = selectedPageIndex == index;
 
                   return _buildListItem(
                     context: context,
-                    section: curSection,
+                    menu: curMenu,
                     isSelected: isSelected,
                     onTap: () => onItemSelected(index),
                   );
@@ -105,7 +106,7 @@ class SidebarWidget extends StatelessWidget {
 
   Widget _buildListItem({
     required BuildContext context,
-    required Section section,
+    required MenuInfo menu,
     required bool isSelected,
     required VoidCallback onTap,
   }) {
@@ -123,12 +124,11 @@ class SidebarWidget extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: isSelected
-                  ? section.color.withOpacity(0.1)
-                  : Colors.transparent,
+              color:
+                  isSelected ? menu.color.withOpacity(0.1) : Colors.transparent,
               borderRadius: borderRadius,
               border: Border.all(
-                color: isSelected ? section.color : Colors.transparent,
+                color: isSelected ? menu.color : Colors.transparent,
                 width: 1,
               ),
             ),
@@ -138,13 +138,12 @@ class SidebarWidget extends StatelessWidget {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: isSelected
-                        ? section.color
-                        : Colors.white.withOpacity(0.1),
+                    color:
+                        isSelected ? menu.color : Colors.white.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                   child: Icon(
-                    isSelected ? section.selectedIcon : section.icon,
+                    isSelected ? menu.selectedIcon : menu.icon,
                     color: Colors.white,
                     size: 24,
                   ),
@@ -156,7 +155,7 @@ class SidebarWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        section.title,
+                        menu.title,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight:
@@ -166,11 +165,11 @@ class SidebarWidget extends StatelessWidget {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      if (section.subtitle.isNotEmpty)
+                      if (menu.subtitle.isNotEmpty)
                         Padding(
                           padding: const EdgeInsets.only(top: 2.0),
                           child: Text(
-                            section.subtitle,
+                            menu.subtitle,
                             style: TextStyle(
                               fontSize: 11.5,
                               color: isSelected
