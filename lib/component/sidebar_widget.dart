@@ -20,7 +20,7 @@ class SidebarWidget extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Container(
-      width: 280,
+      width: 320,
       color: theme.colorScheme.surfaceContainerLowest,
       child: Material(
         color: Colors.transparent,
@@ -39,6 +39,39 @@ class SidebarWidget extends StatelessWidget {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 13.0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF6C63FF).withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: const Color(0xFF6C63FF).withOpacity(0.3),
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.schedule,
+                      color: Color(0xFF6C63FF),
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      '총 ${_sections.length}개 강의',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -77,46 +110,83 @@ class SidebarWidget extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     final theme = Theme.of(context);
-    final Color itemColor = isSelected
-        ? theme.colorScheme.primary
-        : theme.colorScheme.onSurfaceVariant;
-    final IconData currentIcon =
-        isSelected ? section.selectedIcon : section.icon;
+    var borderRadius = BorderRadius.circular(12.0);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(20)),
-          border: Border.all(
-            color: isSelected ? section.color : Colors.transparent,
-            width: 1,
-          ),
-        ),
-        child: ListTile(
-          leading: Icon(currentIcon, color: itemColor),
-          title: Text(
-            section.title,
-            style: TextStyle(
-              color: itemColor,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            ),
-          ),
-          subtitle: Text(
-            section.subtitle,
-            style: TextStyle(
-              color: itemColor.withOpacity(0.5),
-              fontSize: 11.5,
-            ),
-          ),
-          selected: isSelected,
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12.0),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: borderRadius,
           onTap: onTap,
-          selectedTileColor:
-              theme.colorScheme.primaryContainer.withOpacity(0.3),
           hoverColor: theme.colorScheme.onSurface.withOpacity(0.04),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-          contentPadding: const EdgeInsets.symmetric(horizontal: 24.0),
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? section.color.withOpacity(0.1)
+                  : Colors.transparent,
+              borderRadius: borderRadius,
+              border: Border.all(
+                color: isSelected ? section.color : Colors.transparent,
+                width: 1,
+              ),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: isSelected
+                        ? section.color
+                        : Colors.white.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  child: Icon(
+                    isSelected ? section.selectedIcon : section.icon,
+                    color: Colors.white,
+                    size: 24,
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        section.title,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight:
+                              isSelected ? FontWeight.bold : FontWeight.normal,
+                          color: isSelected ? Colors.white : Colors.white70,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      if (section.subtitle.isNotEmpty)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 2.0),
+                          child: Text(
+                            section.subtitle,
+                            style: TextStyle(
+                              fontSize: 11.5,
+                              color: isSelected
+                                  ? Colors.white.withOpacity(0.7)
+                                  : Colors.white54,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
