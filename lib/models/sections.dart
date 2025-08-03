@@ -28,7 +28,7 @@ final List<Section> sections = [
     title: '3. Flutter 심화',
     subtitle: 'restapi 통신으로 날씨 앱 만들기',
     icon: Icons.edit,
-    color: const Color(0xFF4CAF50),
+    color: const Color(0xFF54A0FF),
     page: const SamplePage('3강 페이지'),
   ),
 ];
