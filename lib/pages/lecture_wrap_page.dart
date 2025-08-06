@@ -15,10 +15,7 @@ class LectureWrapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [
-          _buildHeader(context),
-          content,
-        ],
+        children: [_buildHeader(context), content],
       ),
     );
   }
