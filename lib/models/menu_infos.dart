@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_lecture/models/menu_info.dart';
-import 'package:flutter_lecture/pages/lecture_1.dart';
-import 'package:flutter_lecture/pages/lecture_wrap_page.dart';
 
 final List<MenuInfo> menuList = [
   MenuInfo(
