@@ -4,13 +4,13 @@ import 'package:flutter_lecture/models/menu_info.dart';
 final List<MenuInfo> menuList = [
   MenuInfo(
     title: 'Intro',
-    subtitle: '플러터의 첫걸음을 시작해보세요',
+    subtitle: '강의 소개',
     icon: Icons.rocket_launch,
     color: const Color(0xFF6C63FF),
   ),
   MenuInfo(
     title: '1. Flutter 소개',
-    subtitle: 'Google의 크로스플랫폼 프레임워크',
+    subtitle: 'Flutter 첫 걸음 시작하기',
     icon: Icons.code,
     color: const Color(0xFF03DAC6),
   ),
