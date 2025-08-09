@@ -5,41 +5,13 @@ class Lecture1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: const Text(
-              "Lecture 1",
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              itemCount: 30,
-              itemBuilder: (context, index) {
-                final int itemNumber = index + 1;
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    "Item $itemNumber",
-                    style: const TextStyle(fontSize: 22, color: Colors.white70),
-                    textAlign: TextAlign.center,
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+    return const Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text('플러터 위젯 실습 1'),
+        SizedBox(height: 3000),
+      ],
     );
   }
 }

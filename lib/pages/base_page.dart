@@ -34,15 +34,22 @@ class _BasePageState extends State<BasePage> {
             onItemSelected: onSideBarMenuSelected,
           ),
           Expanded(
-            child: Column(
-              children: [
-                _buildHeader(
-                  context,
-                  menuInfoList[_selectedPageIndex],
-                  _selectedPageIndex,
-                ),
-                Expanded(child: _pages[_selectedPageIndex]),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildHeader(
+                    context,
+                    menuInfoList[_selectedPageIndex],
+                    _selectedPageIndex,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 24.0, horizontal: 36.0),
+                    child: _pages[_selectedPageIndex],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -65,7 +72,7 @@ class _BasePageState extends State<BasePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(14.0),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -84,7 +91,7 @@ class _BasePageState extends State<BasePage> {
                 ),
                 child: Icon(
                   menuInfo.selectedIcon,
-                  size: 32,
+                  size: 38,
                   color: Colors.white,
                 ),
               ),
@@ -96,13 +103,15 @@ class _BasePageState extends State<BasePage> {
                     menuInfo.title,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
+                          fontSize: 30,
                           color: Colors.white,
                         ),
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 2),
                   Text(
                     menuInfo.subtitle,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 14,
                           color: Colors.white70,
                         ),
                   ),
