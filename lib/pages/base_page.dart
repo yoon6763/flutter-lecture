@@ -3,6 +3,7 @@ import 'package:flutter_lecture/component/sidebar_widget.dart';
 import 'package:flutter_lecture/models/menu_info.dart';
 import 'package:flutter_lecture/models/menu_infos.dart';
 import 'package:flutter_lecture/pages/lecture_1.dart';
+import 'package:flutter_lecture/pages/lecture_2.dart';
 
 class BasePage extends StatefulWidget {
   const BasePage({super.key});
@@ -16,9 +17,9 @@ class _BasePageState extends State<BasePage> {
 
   final List<Widget> _pages = [
     const Lecture1(),
-    const Lecture1(),
-    const Lecture1(),
-    const Lecture1(),
+    const Lecture2(),
+    const Lecture2(),
+    const Lecture2(),
   ];
 
   final List<MenuInfo> menuInfoList = menuList;
